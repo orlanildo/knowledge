@@ -40,6 +40,15 @@
                             placeholder="Confirme a Senha do Usuário..." />
                     </b-form-group>
                 </b-col>
+
+                <b-form-group v-if="mode === 'save'" 
+                    label="Autor:" label-for="article-userId">
+                    <b-form-select id="article-userId"
+                        :options="users" v-model="article.userId" />
+                </b-form-group>
+
+               
+               
             </b-row>
             <b-row>
                 <b-col xs="12">

@@ -2,6 +2,18 @@
     <div class="article-by-id">
         <PageTitle icon="fa fa-file-o" :main="article.name" :sub="article.description" />
         <div class="article-content" v-html="article.content"></div>
+
+        <Label>Avaliação</Label>
+        <star-rating class="rating-star"
+            v-model="rating"
+            v-bind:increment="1.0"
+            v-bind:max-rating="5"
+            inactive-color="#FFF"
+            active-color="#6610f2"
+            v-bind:star-size="40"
+            v-bind:show-rating= "false">
+        </star-rating>
+        
     </div>
 </template>
 
@@ -11,13 +23,20 @@ import hljs from 'highlightjs/highlight.pack.js'
 import { baseApiUrl } from '@/global'
 import axios from 'axios'
 import PageTitle from '../template/PageTitle'
+import StarRating from 'vue-star-rating'
 
 export default {
     name: 'ArticleById',
-    components: { PageTitle },
+    components: { PageTitle, StarRating},
     data: function() {
+        rating: 0
         return {
-            article: {}
+            article: {},
+        }
+    },
+    methods: {
+        setRating: function(rating){
+            this.rating= rating;
         }
     },
     mounted() {
@@ -28,11 +47,15 @@ export default {
         document.querySelectorAll('.article-content pre.ql-syntax').forEach(e => {
             hljs.highlightBlock(e)
         })
-    }
+    }    
 }
 </script>
 
 <style>
+    .rating-star{
+        float:right;
+        margin-bottom: 20%;
+    }
     .article-content {
         background-color: #FFF;
         border-radius: 8px;
